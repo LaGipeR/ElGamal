@@ -7,5 +7,7 @@ edition = "2021"
 
 [dependencies]
 long_int = {git = "https://github.com/LaGipeR/LongInt"}
-sha1 = {git = "https://github.com/LaGipeR/SHA-1"}
 random_generator = {git = "https://github.com/LaGipeR/Random-Generator"}
+
+[dev-dependencies]
+sha1 = {git = "https://github.com/LaGipeR/SHA-1"}

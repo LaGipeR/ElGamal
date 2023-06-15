@@ -52,7 +52,9 @@ pub mod ElGamal {
 
         let r = LongInt::pow(&g(), &k, &p());
 
-        let s = ((message_hash + (&p_minus_1 - (secret_key * &r) % &p_minus_1)) * inv(&k, &p_minus_1)) % &p_minus_1;
+        let s = ((message_hash + (&p_minus_1 - (secret_key * &r) % &p_minus_1))
+            * inv(&k, &p_minus_1))
+            % &p_minus_1;
 
         return if &s == &LongInt::new() {
             sign(message_hash, secret_key)
@@ -96,7 +98,7 @@ pub mod ElGamal {
         result
     }
 
-    fn encrypt_block(message_block: &LongInt, public_key: &PublicKey) -> (LongInt, LongInt){
+    fn encrypt_block(message_block: &LongInt, public_key: &PublicKey) -> (LongInt, LongInt) {
         let k = random_long_int();
         let p = p();
         let x = LongInt::pow(&g(), &k, &p);
@@ -159,10 +161,10 @@ pub mod ElGamal {
 
 #[cfg(test)]
 mod tests {
-    use std::fmt::Write;
     use crate::ElGamal::*;
     use long_int::*;
     use random_generator::RandGen;
+    use std::fmt::Write;
 
     #[test]
     fn test_inv() {
@@ -252,7 +254,7 @@ mod tests {
     fn message2long_int(message: &str) -> LongInt {
         let mut hex_m = String::new();
         for &byte in message.as_bytes() {
-            hex_m.push_str(&format!("{:x} ", byte));
+            hex_m.push_str(&format!("{:x}", byte));
         }
         LongInt::from_hex(&hex_m)
     }
@@ -267,7 +269,6 @@ mod tests {
 
         hasher.add(&sha1::u8_slice_to_bool(&m.as_bytes()));
         let hash = hasher.finalize();
-
 
         let sign = sign(&hash, &secret_key);
 
